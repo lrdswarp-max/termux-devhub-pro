@@ -34,19 +34,7 @@ Esta é uma **revisão completa e otimizada** da documentação original. Resolv
 ## 🎯 Quick Start
 
 ```bash
-# Opção 1: Download direto
-curl -fsSL https://raw.githubusercontent.com/seu-user/devhub-pro/main/install.sh | bash
-
-# Opção 2: Clone e execute
-git clone https://github.com/seu-user/devhub-pro.git
-cd devhub-pro
-bash install-devhub-pro.sh
-
-# Opção 3: Via Termux (recomendado)
-termux-change-repo  # Selecione mirror mais próximo
-pkg install curl
-curl -O https://seu-url/install-devhub-pro.sh
-bash install-devhub-pro.sh
+curl -fsSL https://raw.githubusercontent.com/lrdswarp-max/termux-devhub-pro/main/install.sh | bash
 ```
 
 ---

@@ -8,14 +8,7 @@
 ## 🚀 Quick Start
 
 ```bash
-# 1. Baixe o script
-curl -fsSL https://seu-repo.com/install-devhub.sh -o install.sh
-
-# 2. Execute
-bash install.sh
-
-# 3. Use
-devhub  # Menu interativo
+curl -fsSL https://raw.githubusercontent.com/lrdswarp-max/termux-devhub-pro/main/install.sh | bash
 ```
 
 ---
