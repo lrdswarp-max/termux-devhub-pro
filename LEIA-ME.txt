@@ -1,0 +1,34 @@
+TERMUX DEVHUB PRO v3.0
+======================
+
+ARQUIVOS INCLUÍDOS:
+-------------------
+1. install-devhub-pro.sh    ⭐ SCRIPT PRINCIPAL (USE ESTE!)
+2. install-devhub.sh         Versão básica (alternativa)
+3. README-FINAL.md           Documentação completa
+4. README-DEVHUB-PRO.md      Documentação técnica
+5. RESUMO-REVISAO.md         Resumo das mudanças
+
+COMO USAR:
+----------
+1. Extraia os arquivos
+2. Copie 'install-devhub-pro.sh' para seu Android
+3. No Termux, execute:
+   bash install-devhub-pro.sh
+4. Aguarde 15-20 minutos
+5. Execute: devhub
+
+REQUISITOS:
+-----------
+- Termux (F-Droid, não Play Store)
+- Android 8+
+- 4GB+ espaço livre
+- Conexão Wi-Fi
+
+DÚVIDAS?
+--------
+Leia o README-FINAL.md para documentação completa.
+
+---
+Termux DevHub Pro v3.0 "NATIVE"
+Revisão Otimizada - Fevereiro 2026
