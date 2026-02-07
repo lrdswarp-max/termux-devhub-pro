@@ -496,7 +496,11 @@ npx pwa-asset-generator logo.png public/
 
 ---
 
-## 🎓 Recursos de Aprendizado
+## 🌟 Recursos de Aprendizado
+
+---
+
+**Última Atualização:** 2026-02-07 15:11:03 GMT-3
 
 ### Neovim
 
