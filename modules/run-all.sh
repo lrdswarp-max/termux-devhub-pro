@@ -34,6 +34,37 @@ success() {
     echo -e "${C_GREEN}✓${C_RESET} $msg" | tee -a "$INSTALL_LOG"
 }
 
+check_termux_compatibility() {
+    log "INFO" "Verificando compatibilidade Termux..."
+    
+    # Verificar se está em Termux
+    if [[ ! -d "/data/data/com.termux" ]]; then
+        log "WARN" "Não detectado ambiente Termux"
+    else
+        success "Ambiente Termux detectado"
+    fi
+    
+    # Verificar inotify
+    if pkg list-installed 2>/dev/null | grep -q inotify-tools; then
+        success "inotify-tools disponível para hot reload"
+    else
+        log "WARN" "inotify-tools não instalado - usando polling (mais lento)"
+        export WATCHPACK_POLLING=1000
+    fi
+    
+    # Verificar RAM disponível
+    local available_ram=$(free -h 2>/dev/null | awk '/^Mem:/ {print $7}' | sed 's/G$//')
+    if [[ -n "$available_ram" ]] && (( $(echo "$available_ram < 2" | bc -l) )); then
+        log "WARN" "RAM disponível inferior a 2GB - performance reduzida"
+    fi
+    
+    # Verificar storage
+    local storage=$(df "$HOME" 2>/dev/null | tail -1 | awk '{print $4}')
+    if [[ -n "$storage" ]] && [[ "$storage" -lt 500000 ]]; then
+        log "WARN" "Menos de 500MB disponível no storage"
+    fi
+}
+
 # Banner
 clear
 echo -e "${C_BLUE}"
@@ -56,6 +87,11 @@ echo -e "${C_RESET}"
 
 log "INFO" "Iniciando instalação modular do DevHub Pro..."
 log "INFO" "Log: $INSTALL_LOG"
+
+# Verificar compatibilidade Termux
+check_termux_compatibility
+
+echo ""
 
 # Array de módulos
 MODULES=(

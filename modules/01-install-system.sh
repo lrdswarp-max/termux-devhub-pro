@@ -33,17 +33,9 @@ PACKAGES=(
     "tar"
     "nodejs-lts"
     "npm"
-    "python"
     "neovim"
     "tmux"
     "zsh"
-    "ripgrep"
-    "fd"
-    "fzf"
-    "bat"
-    "eza"
-    "termux-api"
-    "gh"
     "openssh"
 )
 

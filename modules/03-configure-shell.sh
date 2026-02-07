@@ -24,15 +24,17 @@ fi
 log "SUCCESS" "Zsh instalado: $(zsh --version)"
 
 # Mudar shell padrão para Zsh
-if [[ "$SHELL" != *"zsh"* ]]; then
-    log "INFO" "Mudando shell padrão para Zsh..."
-    chsh -s zsh || log "WARN" "Falha ao mudar shell (continuando...)"
-fi
+# Nota: Termux não suporta chsh (sem /etc/passwd modificável)
+# Para usar Zsh como padrão, execute manualmente após reboot:
+# exec zsh
+log "INFO" "Zsh disponível como shell alternativo"
 
 # Instalar Oh-My-Zsh
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
     log "INFO" "Instalando Oh-My-Zsh..."
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended 2>&1 | tee -a "$INSTALL_LOG" || {
+    export RUNZSH=no
+    export KEEP_ZSHRC=yes
+    echo "" | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended 2>&1 | tee -a "$INSTALL_LOG" || {
         log "ERROR" "Falha ao instalar Oh-My-Zsh"
         exit 1
     }

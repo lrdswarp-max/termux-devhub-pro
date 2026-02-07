@@ -29,7 +29,7 @@ fi
 log "INFO" "Criando projeto Next.js 15..."
 cd "$HOME/projects"
 
-pnpm create next-app@latest devhub-pwa \
+echo "" | pnpm create next-app@latest devhub-pwa \
     --typescript \
     --tailwind \
     --eslint \
@@ -44,7 +44,7 @@ cd "$PROJECT_DIR"
 
 # Instalar dependências adicionais
 log "INFO" "Instalando dependências adicionais..."
-pnpm add next-pwa better-sqlite3 drizzle-orm 2>&1 | tee -a "$INSTALL_LOG" || {
+pnpm add next-pwa sqlite drizzle-orm 2>&1 | tee -a "$INSTALL_LOG" || {
     log "WARN" "Falha ao instalar algumas dependências (continuando...)"
 }
 
@@ -57,7 +57,7 @@ log "INFO" "Criando estrutura de banco de dados..."
 mkdir -p src/db
 
 cat > src/db/index.ts << 'EOF'
-import { drizzle } from 'drizzle-orm/better-sqlite3'
+import { drizzle } from 'drizzle-orm/node-sqlite'
 import Database from 'better-sqlite3'
 
 const sqlite = new Database('./sqlite.db')
@@ -75,11 +75,11 @@ export const users = sqliteTable('users', {
 })
 EOF
 
-# Criar arquivo .env.local
+# Criar arquivo .env.local com configurações Termux
 log "INFO" "Criando arquivo .env.local..."
-cat > .env.local << 'EOF'
-# Database
-DATABASE_URL="file:./sqlite.db"
+# Placeholder
+# Placeholder
+# Placeholder
 
 # Supabase (opcional)
 NEXT_PUBLIC_SUPABASE_URL=
@@ -87,6 +87,10 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=
 
 # App
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
+
+# Performance em Termux
+WATCHPACK_POLLING=1000
+NODE_FILE_WATCHER=polling
 EOF
 
 # Inicializar Git

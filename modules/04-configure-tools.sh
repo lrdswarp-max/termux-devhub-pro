@@ -60,31 +60,57 @@ log "INFO" "Configurando Neovim..."
 mkdir -p "$HOME/.config/nvim/autoload"
 
 cat > "$HOME/.config/nvim/init.lua" << 'EOF'
--- DevHub Pro - Neovim Config (Minimal)
+-- DevHub Pro - Neovim Config (Otimizado para Termux)
 local opt = vim.opt
 
+-- Performance em Termux
+opt.updatetime = 1000
+opt.timeoutlen = 500
+opt.ttimeoutlen = 10
+
+-- Essencial
 opt.number = true
+opt.relativenumber = false
 opt.expandtab = true
 opt.shiftwidth = 2
 opt.tabstop = 2
 opt.smartindent = true
 opt.wrap = false
-opt.termguicolors = true
+opt.termguicolors = false  -- Desabilitar true colors em Termux
 opt.background = "dark"
 opt.cursorline = true
 opt.ignorecase = true
 opt.smartcase = true
 
+-- Leader key
 vim.g.mapleader = " "
+
+-- Keymaps basicos
+vim.keymap.set('n', '<leader>w', ':w<CR>', { noremap = true })
+vim.keymap.set('n', '<leader>q', ':q<CR>', { noremap = true })
+
+-- Desabilitar providers pesados em Termux
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+
+-- Syntax highlighting minimo
+vim.cmd('syntax on')
 EOF
 
 # Instalar vim-plug
 if [[ ! -f "$HOME/.config/nvim/autoload/plug.vim" ]]; then
     log "INFO" "Instalando vim-plug..."
-    curl -fLo "$HOME/.config/nvim/autoload/plug.vim" --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 2>&1 | tee -a "$INSTALL_LOG" || {
-        log "WARN" "Falha ao instalar vim-plug (continuando...)"
-    }
+    mkdir -p "$HOME/.config/nvim/autoload"
+    
+    if curl -fLo "$HOME/.config/nvim/autoload/plug.vim" \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 2>&1 | tee -a "$INSTALL_LOG"; then
+        log "SUCCESS" "vim-plug instalado"
+    else
+        log "WARN" "Falha ao instalar vim-plug (Neovim funcionará sem plugins)"
+    fi
+else
+    log "SUCCESS" "vim-plug já estava instalado"
 fi
 
 log "SUCCESS" "Neovim configurado"
