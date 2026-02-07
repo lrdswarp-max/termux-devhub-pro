@@ -33,14 +33,14 @@ O **Termux DevHub Pro v3.0** é um ambiente de desenvolvimento completo e otimiz
 ### Método 1: Instalação via curl (Recomendado)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/SEU-USUARIO/termux-devhub-pro/main/install-devhub-pro.sh | bash
+curl -fsSL https://raw.githubusercontent.com/lrdswarp-max/termux-devhub-pro/main/install-devhub-pro.sh | bash
 ```
 
 ### Método 2: Clone e Execute
 
 ```bash
 # Clone o repositório
-git clone https://github.com/SEU-USUARIO/termux-devhub-pro.git
+git clone https://github.com/lrdswarp-max/termux-devhub-pro.git
 
 # Entre no diretório
 cd termux-devhub-pro
@@ -59,7 +59,7 @@ termux-change-repo
 pkg install curl
 
 # Baixe o script
-curl -O https://raw.githubusercontent.com/SEU-USUARIO/termux-devhub-pro/main/install-devhub-pro.sh
+curl -O https://raw.githubusercontent.com/lrdswarp-max/termux-devhub-pro/main/install-devhub-pro.sh
 
 # Execute
 bash install-devhub-pro.sh
@@ -290,7 +290,7 @@ Este projeto é open source e está disponível sob a licença MIT.
 Se encontrar problemas ou tiver dúvidas:
 
 1. Verifique a [documentação completa](README-FINAL.md)
-2. Abra uma [issue](https://github.com/SEU-USUARIO/termux-devhub-pro/issues)
+2. Abra uma [issue](https://github.com/lrdswarp-max/termux-devhub-pro/issues)
 3. Consulte a comunidade Termux
 
 ---

@@ -5,7 +5,7 @@
 # ║                      Script de instalação rápida via curl                    ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 #
-# Uso: curl -fsSL https://raw.githubusercontent.com/SEU-USUARIO/termux-devhub-pro/main/install.sh | bash
+# Uso: curl -fsSL https://raw.githubusercontent.com/lrdswarp-max/termux-devhub-pro/main/install.sh | bash
 #
 
 set -euo pipefail
@@ -56,7 +56,7 @@ cd "$TEMP_DIR"
 echo -e "${C_BLUE}ℹ${C_RESET} Baixando instalador principal..."
 
 # URL do repositório (será atualizada após criar o repo)
-REPO_URL="https://raw.githubusercontent.com/SEU-USUARIO/termux-devhub-pro/main"
+REPO_URL="https://raw.githubusercontent.com/lrdswarp-max/termux-devhub-pro/main"
 INSTALLER_URL="${REPO_URL}/install-devhub-pro.sh"
 
 # Tenta baixar o instalador principal
