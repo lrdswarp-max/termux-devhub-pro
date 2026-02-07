@@ -239,12 +239,31 @@ validate_environment() {
 
     # Verificar espaço
     local available_gb
-    available_gb=$(df -BG "$HOME" | awk 'NR==2 {print $4}' | tr -d 'G')
-    if [[ "$available_gb" -lt 4 ]]; then
+    # Verificar espaço (compatível com Android 16/Termux df)
+    # Extrai o valor numérico da coluna 'Available' (geralmente a 4ª coluna)
+    available_gb=$(df "$HOME" | awk 'NR==2 {print $4}' | sed 's/[^0-9]//g')
+    
+    # Se falhar a extração, tenta um método alternativo
+    if [[ -z "$available_gb" ]]; then
+        available_gb=$(df "$HOME" | tail -n 1 | awk '{print $(NF-2)}' | sed 's/[^0-9]//g')
+    fi
+
+    # Se o valor for muito grande (provavelmente em KB), converter para GB
+    if [ -n "$available_gb" ] && [ "$available_gb" -gt 1000000 ]; then
+        available_gb=$((available_gb / 1024 / 1024))
+    elif [ -n "$available_gb" ] && [ "$available_gb" -gt 1000 ]; then
+        available_gb=$((available_gb / 1024))
+    fi
+    
+    # Fallback caso não consiga detectar (não bloqueia a instalação se falhar)
+    if [[ -z "$available_gb" ]]; then
+        log warn "Não foi possível detectar o espaço livre. Prosseguindo com cautela..."
+    elif [[ "$available_gb" -lt 4 ]]; then
         log error "Espaço insuficiente: ${available_gb}GB disponível, necessário 4GB+"
         exit 1
+    else
+        log success "Espaço disponível: ${available_gb}GB"
     fi
-    log success "Espaço disponível: ${available_gb}GB"
 
     # Verificar RAM
     local total_ram
@@ -273,6 +292,8 @@ install_system() {
 
     # Atualizar repositórios
     log info "Atualizando repositórios Termux..."
+    # Garante que os repositórios estão apontando para os mirrors corretos antes do update
+    termux-change-repo -s main 2>/dev/null || true
     (pkg update -y && pkg upgrade -y) &
     spinner $! "Atualizando pacotes"
 
@@ -312,8 +333,9 @@ install_system() {
     # Configurar storage
     if [[ ! -d "$HOME/storage" ]]; then
         log info "Configurando acesso ao storage Android..."
+        log warn "⚠️  POR FAVOR, CLIQUE EM 'PERMITIR' NO POP-UP DO ANDROID!"
         termux-setup-storage
-        sleep 2
+        sleep 5
     fi
 
     update_state "system" "success" "Sistema base instalado"
