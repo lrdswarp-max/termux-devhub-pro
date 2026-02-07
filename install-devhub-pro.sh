@@ -93,6 +93,9 @@ log() {
         debug)   echo -e "${C_DIM}[${timestamp}]${C_RESET}   $msg" ;;
     esac
 
+    # Criar diretório se não existir
+    mkdir -p "$(dirname "$LOG_FILE")" 2>/dev/null || true
+    
     # Também loga em arquivo sem cores
     echo "[${timestamp}] [${level^^}] $msg" >> "$LOG_FILE" 2>/dev/null || true
 }
